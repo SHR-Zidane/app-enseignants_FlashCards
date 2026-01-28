@@ -4,17 +4,22 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
+
       // Champ genre pour lequel on définit un enum avec pour valeur par défaut
-      ;('woman')
       table.enum('gender', ['woman', 'man', 'other']).notNullable().defaultTo('woman')
+
       // Champ prénom
       table.string('firstname').notNullable()
+
       // Champ nom
       table.string('lastname').notNullable()
+
       // Champ surnom
       table.string('nickname').notNullable()
+
       // Champ origine du prénom
       table.string('origine').notNullable()
+
       // Clé étrangère de la section
       table
         .integer('section_id') // Clé étrangère

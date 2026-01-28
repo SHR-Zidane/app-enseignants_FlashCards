@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
-import Section from '#models/section'
+import Section from '#models/sections'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 export default class Teacher extends BaseModel {
   @column({ isPrimary: true })

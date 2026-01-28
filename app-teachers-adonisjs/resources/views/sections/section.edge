@@ -1,0 +1,31 @@
+@component('components/layout', { title: 'Voir les sections' })
+  <h3>
+    Liste des sections
+  </h3>
+  <form action="#" method="post">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Nom
+          </th>
+          <th>
+            Options
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @each((section, index) in sections)
+          <tr>
+            <td>
+              {{ section.name }}
+            </td>
+            <a href="javascript:confirmDelete()">
+              <img height="20em" src="./img/delete.png" alt="delete" />
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+@endcomponent

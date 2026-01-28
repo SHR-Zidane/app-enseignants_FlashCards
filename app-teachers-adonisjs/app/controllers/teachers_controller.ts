@@ -1,5 +1,6 @@
 import Teacher from '#models/teachers'
 import type { HttpContext } from '@adonisjs/core/http'
+import { title } from 'process'
 
 export default class TeachersController {
   /**
@@ -9,7 +10,11 @@ export default class TeachersController {
     const teachers = await Teacher.query().orderBy('lastname', 'asc').orderBy('firstname', 'asc')
     return view.render('pages/home', { teachers })
   }
+  async show({ params, view }: HttpContext) {
+    const teacher = await Teacher.query().where('id', params.id).preload('section').firstOrFail()
 
+    return view.render('pages/teachers/show.edge', { title: "Détail d'un enseignant", teacher })
+  }
   /**
    * Display form to create a new record
    */
@@ -23,7 +28,6 @@ export default class TeachersController {
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) {}
 
   /**
    * Edit individual record

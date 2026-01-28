@@ -1,6 +1,8 @@
 import Teacher from '#models/teachers'
-import type { HttpContext } from '@adonisjs/core/http'
+import Section from '#models/sections'
+import { HttpContext } from '@adonisjs/core/http'
 import { title } from 'process'
+import { teacherValidator } from '#validators/teacher'
 
 export default class TeachersController {
   /**
@@ -18,29 +20,45 @@ export default class TeachersController {
   /**
    * Display form to create a new record
    */
-  async create({}: HttpContext) {}
+  async create({ view }: HttpContext) {
+    const sections = await Section.query().orderBy('name', 'asc')
+
+    return view.render('pages/teachers/create', { title: "Ajout d'un enseignant", sections })
+  }
 
   /**
    * Handle form submission for the create action
    */
-  async store({ request }: HttpContext) {}
+  async store({ request, session, response }: HttpContext) {
+    const { gender, firstname, lastname, nickname, origine, sectionId } =
+      await request.validateUsing(teacherValidator)
 
-  /**
-   * Show individual record
-   */
+    const teacher = await Teacher.create({
+      gender,
+      firstname,
+      lastname,
+      nickname,
+      origine,
+      sectionId,
+    })
+    // Afficher un message à l'utilisateur
+    session.flash(
+      'success',
+      `Le nouvel enseignant ${teacher.lastname}
+      ${teacher.firstname} a été ajouté avec succès !`
+    )
+    // Rediriger vers la homepage
+    return response.redirect().toRoute('home')
+  }
+  async delete({ params, session, response }: HttpContext) {
+    const teacher = await Teacher.findOrFail(params.id)
 
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {}
+    await teacher.delete()
 
-  /**
-   * Handle form submission for the edit action
-   */
-  async update({ params, request }: HttpContext) {}
-
-  /**
-   * Delete record
-   */
-  async destroy({ params }: HttpContext) {}
+    session.flash(
+      'success',
+      "L'enseignant ${teacher.lastname} ${teacher.firstname} a été supprimé avec succès !"
+    )
+    return response.redirect().toRoute('home')
+  }
 }

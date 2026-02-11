@@ -5,6 +5,15 @@ export default class Deck extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare title: string
+
+  @column()
+  declare description: string
+
+  @column()
+  declare nbCard: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

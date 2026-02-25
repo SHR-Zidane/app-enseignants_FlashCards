@@ -1,47 +1,44 @@
-@component('components/layout', { title: "Modifier le deck : " + deck.title })
-  @include('partials/header.edge')
-  <h1>
-    Modifier le deck
-  </h1>
+@include('partials/header.edge')
+<h1>
+  Modifier le deck
+</h1>
 
-  <form action="{{ route('decks.update', { id: deck.id }) }}?_method=PUT" method="POST">
-    {{ csrfField() }}
-    <div class="form-group">
-      <label for="title">Titre du deck</label>
-      <input type="text" name="title" id="title" value="{{ old('title') || deck.title }}" />
-      @inputError('title')
-        <p class="error">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
+<form action="{{ route('deck.update', { id: deck.id }) }}?_method=PUT" method="POST">
+  {{ csrfField() }}
+  <div class="form-group">
+    <label for="title">Titre du deck</label>
+    <input type="text" name="title" id="title" value="{{ old('title') || deck.title }}" />
+    @inputError('title')
+      <p class="error">
+        {{ $messages.join(', ') }}
+      </p>
+    @end
+  </div>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea name="description" id="description">{{ old('description') || deck.description }}</textarea>
-      @inputError('description')
-        <p class="error">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description">{{ old('description') || deck.description }}</textarea>
+    @inputError('description')
+      <p class="error">
+        {{ $messages.join(', ') }}
+      </p>
+    @end
+  </div>
 
-    <div class="form-group">
-      <label for="nbCard">Nombre de cartes</label>
-      <input type="number" name="nbCard" id="nbCard" value="{{ old('nbCard') || deck.nbCard }}" />
-      @inputError('nbCard')
-        <p class="error">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
+  <div class="form-group">
+    <label for="nbCard">Nombre de cartes</label>
+    <input type="number" name="nbCard" id="nbCard" value="{{ old('nbCard') || deck.nbCard }}" />
+    @inputError('nbCard')
+      <p class="error">
+        {{ $messages.join(', ') }}
+      </p>
+    @end
+  </div>
 
-    <button type="submit" class="btn-ajouter">
-      Mettre à jour le deck
+  <button type="submit" class="btn-ajouter">
+    Mettre à jour le deck
     </button>
-  </form>
-
-@end
+</form>
 
 <style>
   .form-group {

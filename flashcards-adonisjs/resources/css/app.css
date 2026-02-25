@@ -8,3 +8,73 @@ body {
   height: 100%;
   width: 100%;
 }
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #cac97eff;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header .login {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+span.user {
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+button.deco {
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+button.deco:hover {
+  background-color: #e5e5e5;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+td {
+  padding: 10px 0;
+}
+
+.btn-ajouter {
+  display: block;
+  margin: 20px auto 20px 10%;
+  padding: 8px 20px;
+  border: 1px solid #000;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title')
       table.text('description')
-      table.integer('nbCard')
+      table.integer('nb_card')
     })
   }
 

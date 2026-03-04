@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Créer un Deck
+    </title>
+    @vite(['resources/css/app.css'])
+  </head>
+  <body>
+    @include('partials/header')
+    <main>
+      <h1>
+        Créer un nouveau deck
+      </h1>
+
+      <form action="{{ route('deck.store') }}" method="POST">
+        {{ csrfField() }}
+        <div>
+          <label for="title">Titre du deck :</label>
+          <input type="text" id="title" name="title" required placeholder="ex: Vocabulaire Anglais" />
+        </div>
+
+        <div>
+          <label for="description">Description :</label>
+          <textarea id="description" name="description" placeholder="De quoi parle ce deck ?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-ajouter">Créer le deck</button>
+      </form>
+
+      <br />
+      <a href="{{ route('deck') }}">Annuler et retourner à l'accueil</a>
+    </main>
+  </body>
+</html>

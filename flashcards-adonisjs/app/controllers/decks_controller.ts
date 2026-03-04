@@ -29,6 +29,17 @@ export default class DecksController {
 
     return response.redirect().back()
   }
+  async create({ view }: HttpContext) {
+    return view.render('pages/create')
+  }
+
+  async store({ request, response }: HttpContext) {
+    const data = request.only(['title', 'description'])
+
+    await Deck.create(data)
+
+    return response.redirect().toRoute('deck')
+  }
   async update({ params, request, session, response }: HttpContext) {
     const { title, description, id } = await request.validateUsing(deckValidator)
 
@@ -44,6 +55,6 @@ export default class DecksController {
 
     session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
 
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('deck')
   }
 }

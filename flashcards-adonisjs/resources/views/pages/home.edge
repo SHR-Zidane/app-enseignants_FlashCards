@@ -34,7 +34,7 @@
           @each(deck in decks)
             <tr>
               <td>
-                <a href="{{ route('decks.study', { id: deck.id }) }}" class="link-study">
+                <a href="{{ route('deck.study', { id: deck.id }) }}" class="link-study">
                   <strong>{{ deck.title }}</strong>
                 </a>
               </td>
@@ -54,7 +54,9 @@
         </tbody>
       </table>
 
-      <button class="btn-ajouter">Ajouter un deck</button>
+      <button type="button" class="btn-ajouter" onclick="window.location.href='{{ route('deck.create') }}'">
+        Ajouter un nouveau deck
+      </button>
     </main>
   </body>
 </html>

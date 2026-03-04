@@ -4,7 +4,7 @@
     <title>
       Accueil
     </title>
-    <link rel="stylesheet" href="resources\css\app.css" />
+    @vite(['resources/css/app.css'])
   </head>
   <body>
     @include('partials/header')
@@ -17,13 +17,16 @@
         <thead>
           <tr>
             <th>
-              Titre
+              Titre (Étudier)
             </th>
             <th>
               Description
             </th>
             <th>
-              Cartes
+              Nombre de Cartes
+            </th>
+            <th>
+              Actions
             </th>
           </tr>
         </thead>
@@ -31,8 +34,8 @@
           @each(deck in decks)
             <tr>
               <td>
-                <a href="{{ route('deck.edit', { id: deck.id }) }}" class="link-edit">
-                  {{ deck.title }}
+                <a href="{{ route('decks.study', { id: deck.id }) }}" class="link-study">
+                  <strong>{{ deck.title }}</strong>
                 </a>
               </td>
               <td>
@@ -41,17 +44,17 @@
               <td>
                 {{ deck.$extras.flashcards_count }}
               </td>
+              <td>
+                <a href="{{ route('deck.edit', { id: deck.id }) }}" class="link-edit">
+                  Modifier
+                </a>
+              </td>
             </tr>
           @end
         </tbody>
       </table>
 
-      <button class="btn-ajouter">Ajouter</button>
+      <button class="btn-ajouter">Ajouter un deck</button>
     </main>
-
   </body>
 </html>
-
-<style>
-  
-</style>

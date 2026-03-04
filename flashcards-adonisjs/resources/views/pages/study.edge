@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Étude - {{ deck.title }}
+    </title>
+    @vite(['resources/css/app.css'])
+  </head>
+  <body>
+    @include('partials/header')
+    <main class="study-container">
+      <h1>
+        {{ deck.title }}
+      </h1>
+
+      <div id="flashcard-box" class="flashcard">
+        @if(deck.flashcards.length > 0)
+          @each((card, index) in deck.flashcards)
+            <div class="card-item" id="card-{{ index }}" style="{{ index === 0 ? '' : 'display:none' }}">
+              <div class="card-front">
+                <h3>
+                  Question
+                </h3>
+                <p class="content">
+                  {{ card.question }}
+                </p>
+                <button onclick="showAnswer({{ index }})" class="btn-reveal">Voir la réponse</button>
+              </div>
+
+              <div class="card-back" id="answer-{{ index }}" style="display:none">
+                <hr />
+                <h3>
+                  Réponse
+                </h3>
+                <p class="content">
+                  {{ card.answer }}
+                </p>
+                <button onclick="nextCard({{ index }})" class="btn-next">Suivant →</button>
+              </div>
+              <a href="{{ route('deck') }}">Retour à l'accueil</a>
+            </div>
+          @end
+        @else
+          <p>
+            Ce deck ne contient aucune carte.
+          </p>
+          <a href="{{ route('deck') }}">Retour à l'accueil</a>
+        @end
+      </div>
+    </main>
+
+    <script>
+      function showAnswer(index) {
+        document.getElementById(`answer-${index}`).style.display = "block";
+      }
+
+      function nextCard(index) {
+        const currentCard = document.getElementById(`card-${index}`);
+        const nextCard = document.getElementById(`card-${index + 1}`);
+        if (nextCard) {
+          currentCard.style.display = "none";
+          nextCard.style.display = "block";
+        } else {
+          alert("Deck terminé");
+          window.location.href = "/";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -8,7 +8,11 @@ export default class DecksController {
 
     return view.render('pages/home', { decks })
   }
+  async show({ params, view }: HttpContext) {
+    const deck = await Deck.query().where('id', params.id).preload('flashcards').firstOrFail()
 
+    return view.render('pages/study', { deck })
+  }
   async edit({ params, view }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
 

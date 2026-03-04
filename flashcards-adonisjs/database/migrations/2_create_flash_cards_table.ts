@@ -8,6 +8,8 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('question')
       table.string('answer')
+      table.enum('side', ['question', 'answer']).defaultTo('question').notNullable()
+      table.integer('deck_id').unsigned().references('id').inTable('decks').onDelete('CASCADE')
     })
   }
 

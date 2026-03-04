@@ -7,17 +7,14 @@ export default class extends BaseSeeder {
       {
         title: 'Capitales',
         description: 'Les capitales de tous les pays du monde',
-        nbCard: 185,
       },
       {
         title: 'Tableau périodique',
         description: 'Le tableau périodique de Mendeleïev',
-        nbCard: 118,
       },
       {
         title: 'Wortschatz 12',
         description: 'Die Ferien',
-        nbCard: 25,
       },
     ])
   }

@@ -4,7 +4,7 @@ import { deckValidator } from '#validators/deck'
 
 export default class DecksController {
   public async index({ view }: HttpContext) {
-    const decks = await Deck.all()
+    const decks = await Deck.query().withCount('flashcards')
 
     return view.render('pages/home', { decks })
   }

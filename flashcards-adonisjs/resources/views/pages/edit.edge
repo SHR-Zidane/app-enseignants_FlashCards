@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Modifier - {{ deck.title }}
+    </title>
+    @vite(['resources/css/app.css'])
+  </head>
+  <body>
+    @include('partials/header')
+    <main>
+      <h1>
+        Modifier le deck : {{ deck.title }}
+      </h1>
+
+      <h3>
+        Cartes actuelles
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Question
+            </th>
+            <th>
+              Réponse
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @each(card in deck.flashcards)
+            <tr>
+              <td>
+                {{ card.question }}
+              </td>
+              <td>
+                {{ card.answer }}
+              </td>
+            </tr>
+          @end
+        </tbody>
+      </table>
+
+      <hr />
+
+      <h3>
+        Ajouter une nouvelle carte
+      </h3>
+      <form action="{{ route('decks.addCard', { id: deck.id }) }}" method="POST">
+        {{ csrfField() }}
+        <div>
+          <label>Question (Recto) :</label>
+          <input type="text" name="question" required />
+        </div>
+        <div>
+          <label>Réponse (Verso) :</label>
+          <input type="text" name="answer" required />
+        </div>
+        <button type="submit" class="btn-ajouter">Enregistrer la carte</button>
+      </form>
+
+      <br />
+      <a href="{{ route('deck') }}">Retour aux decks</a>
+    </main>
+  </body>
+</html>

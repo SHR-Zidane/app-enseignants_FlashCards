@@ -23,6 +23,9 @@
               Description
             </th>
             <th>
+              Categorie
+            </th>
+            <th>
               Nombre de Cartes
             </th>
             <th>
@@ -32,6 +35,7 @@
         </thead>
         <tbody>
           @each(deck in decks)
+
             <tr>
               <td>
                 <a href="{{ route('deck.study', { id: deck.id }) }}" class="link-study">
@@ -40,6 +44,9 @@
               </td>
               <td>
                 {{ deck.description }}
+              </td>
+              <td>
+                {{ deck.category.name }}
               </td>
               <td>
                 {{ deck.$extras.flashcards_count }}

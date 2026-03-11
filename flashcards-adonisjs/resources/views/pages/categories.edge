@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Catégories
+    </title>
+    @vite(['resources/css/app.css'])
+  </head>
+  <body>
+    @include('partials/header')
+    <main>
+      <div>
+        <h1>
+          Liste des Catégories
+        </h1>
+        <button
+          type="button"
+          class="btn-ajouter"
+          onclick="window.location.href='{{ route('category.create') }}'"
+        >+ Nouvelle catégorie</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              #
+            </th>
+            <th>
+              Nom
+            </th>
+            <th>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @each(category in categories)
+            <tr>
+              <td>
+                {{ category.id }}
+              </td>
+              <td>
+                {{ category.name }}
+              </td>
+            </tr>
+          @end
+        </table>
+        <a href="{{ route('deck') }}">Retour à l'accueil</a>
+      </main>
+    </body>
+  </html>

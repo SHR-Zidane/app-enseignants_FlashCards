@@ -58,6 +58,20 @@
         </div>
         <button type="submit" class="btn-ajouter">Enregistrer la carte</button>
       </form>
+      <form action="{{ route('deck.addCard', { id: deck.id }) }}" method="POST">
+        {{ csrfField() }}
+         <select name="categoryId" id="categoryId">
+          <option value="">
+            Modifier la catégorie
+          </option>
+          @each(category in categories)
+            <option value="{{ category.id }}" {{ old('categoryId') == category.id ?
+'selected' : '' }}>
+              {{ category.name }}
+            </option>
+          @end
+        </select>
+      </form>
 
       <br />
       <a href="{{ route('deck') }}">Retour aux decks</a>

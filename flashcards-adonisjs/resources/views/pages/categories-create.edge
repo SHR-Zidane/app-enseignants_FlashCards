@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Nouvelle Catégorie
+    </title>
+    @vite(['resources/css/app.css'])
+  </head>
+  <body>
+    @include('partials/header')
+    <main>
+      <h1>
+        Nouvelle Catégorie
+      </h1>
+
+      <form action="{{ route('category.store') }}" method="POST">
+        {{ csrfField() }}
+        <div>
+          <label for="name">Nom de la catégorie</label>
+          <input type="text" id="name" name="name" required placeholder="ex: Langues, Programmation..." />
+          @inputError('name')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+        </div>
+
+        <button type="submit" class="btn-ajouter">Enregistrer la catégorie</button>
+        @if(flashMessages.has('Success'))
+          <p>
+            {{ flashMessages.get('Success') }}
+          </p>
+        @endif
+      </form>
+
+      <br />
+      <a href="{{ route('deck') }}">Annuler et retourner à l'accueil</a>
+    </main>
+  </body>
+</html>

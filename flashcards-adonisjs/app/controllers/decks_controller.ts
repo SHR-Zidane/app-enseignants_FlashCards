@@ -5,7 +5,7 @@ import { deckValidator } from '#validators/deck'
 
 export default class DecksController {
   public async index({ view }: HttpContext) {
-    const decks = await Deck.query().withCount('flashcards')
+    const decks = await Deck.query().preload('category').withCount('flashcards')
 
     return view.render('pages/home', { decks })
   }
@@ -15,7 +15,11 @@ export default class DecksController {
     return view.render('pages/study', { deck })
   }
   async edit({ params, view }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id).preload('flashcards').firstOrFail()
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .preload('flashcards')
+      .preload('category')
+      .firstOrFail()
 
     return view.render('pages/edit', { deck })
   }

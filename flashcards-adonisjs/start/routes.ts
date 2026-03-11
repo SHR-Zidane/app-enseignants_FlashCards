@@ -1,8 +1,16 @@
 import DecksController from '#controllers/decks_controller'
 import Deck from '#models/deck'
 import router from '@adonisjs/core/services/router'
+import CategoriesController from '#controllers/categories_controller'
+import { create } from 'domain'
 
 router.get('/', [DecksController, 'index']).as('deck')
+
+router.get('/categories', [CategoriesController, 'index']).as('category')
+
+router.get('/categories/create', [CategoriesController, 'create']).as('category.create')
+
+router.post('/category', [CategoriesController, 'store']).as('category.store')
 
 router
   .post('/logout', async ({ auth, response }) => {

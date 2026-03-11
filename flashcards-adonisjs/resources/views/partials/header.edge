@@ -3,13 +3,18 @@
   <div class="logo" style="border: 1px solid #ccc; padding: 5px;">
     (logo)
   </div>
-
-  <div class="login">
-    <span class="user">Username</span>
-
-    <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
-      {{ csrfField() }}
-      <button type="submit" class="deco">Déconnexion</button>
-    </form>
+  <div class="category">
+    <a href="{{ route('category') }}" class="link-cat">
+      Catégories
+    </a>
   </div>
-</header>
+  <div>
+    <div class="login">
+      <span class="user">Username</span>
+
+      <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+        {{ csrfField() }}
+      <button type="submit" class="deco">Déconnexion</button>
+      </form>
+    </div>
+  </header>

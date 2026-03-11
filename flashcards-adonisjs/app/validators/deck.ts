@@ -4,7 +4,7 @@ const deckValidator = vine.compile(
   vine.object({
     title: vine.string().trim().minLength(2),
     description: vine.string().trim().minLength(2),
-    id: vine.number().positive(),
+    categoryId: vine.number(),
   })
 )
 

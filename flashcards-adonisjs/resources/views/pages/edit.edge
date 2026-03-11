@@ -58,19 +58,29 @@
         </div>
         <button type="submit" class="btn-ajouter">Enregistrer la carte</button>
       </form>
-      <form action="{{ route('deck.addCard', { id: deck.id }) }}" method="POST">
+      <form action="{{ route('deck.update', { id: deck.id }) }}" method="POST">
         {{ csrfField() }}
+        <div>
+          <label for="title">Titre du deck :</label>
+          <input type="text" id="title" name="title" value="{{ deck.title }}" required />
+        </div>
+
+        <div>
+          <label for="description">Description :</label>
+          <textarea id="description" name="description" >{{ deck.description || '' }}</textarea>
+        </div>
          <select name="categoryId" id="categoryId">
           <option value="">
             Modifier la catégorie
           </option>
           @each(category in categories)
-            <option value="{{ category.id }}" {{ old('categoryId') == category.id ?
+            <option value="{{ category.id }}" {{ deck.categoryId === category.id ?
 'selected' : '' }}>
               {{ category.name }}
             </option>
           @end
         </select>
+        <button type="submit" class="btn-ajouter">Enregistrer les modifications</button>
       </form>
 
       <br />

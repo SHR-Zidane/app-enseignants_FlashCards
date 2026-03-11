@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import Deck from '#models/deck'
 import FlashCard from '#models/flash_card'
 import { deckValidator } from '#validators/deck'
+import Category from '#models/category'
 
 export default class DecksController {
   public async index({ view }: HttpContext) {
@@ -9,11 +10,15 @@ export default class DecksController {
 
     return view.render('pages/home', { decks })
   }
+
+
   async show({ params, view }: HttpContext) {
     const deck = await Deck.query().where('id', params.id).preload('flashcards').firstOrFail()
 
     return view.render('pages/study', { deck })
   }
+
+
   async edit({ params, view }: HttpContext) {
     const deck = await Deck.query()
       .where('id', params.id)
@@ -21,8 +26,12 @@ export default class DecksController {
       .preload('category')
       .firstOrFail()
 
-    return view.render('pages/edit', { deck })
+    const categories = await Category.all()
+
+    return view.render('pages/edit', { deck, categories})
   }
+
+
   async addCard({ params, request, response }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
 
@@ -33,9 +42,12 @@ export default class DecksController {
 
     return response.redirect().back()
   }
+
+
   async create({ view }: HttpContext) {
     return view.render('pages/create')
   }
+
 
   async store({ request, response }: HttpContext) {
     const data = request.only(['title', 'description'])
@@ -45,17 +57,17 @@ export default class DecksController {
     return response.redirect().toRoute('deck')
   }
   async update({ params, request, session, response }: HttpContext) {
-    const { title, description, id } = await request.validateUsing(deckValidator)
+    const { title, description, categoryId } = await request.validateUsing(deckValidator)
 
     const deck = await Deck.findOrFail(params.id)
 
     deck.merge({
       title,
       description,
-      id,
+      categoryId,
     })
 
-    const deckUpdated = await deck.save()
+    await deck.save()
 
     session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
 

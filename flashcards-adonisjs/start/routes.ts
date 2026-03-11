@@ -24,7 +24,7 @@ router.post('/decks/:id/cards', [DecksController, 'addCard']).as('deck.addCard')
 
 router.get('/decks/:id/study', [DecksController, 'show']).as('deck.study')
 
-router.put('/deck/:id/update', [DecksController, 'update']).as('deck.update')
+router.post('/deck/:id/update', [DecksController, 'update']).as('deck.update')
 
 router.get('/decks/create', [DecksController, 'create']).as('deck.create')
 

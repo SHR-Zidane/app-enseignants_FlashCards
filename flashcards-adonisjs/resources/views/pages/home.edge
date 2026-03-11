@@ -51,15 +51,14 @@
               <td>
                 {{ deck.$extras.flashcards_count }}
               </td>
-              <td>
-                <a href="{{ route('deck.edit', { id: deck.id }) }}" class="link-edit">
-                  Modifier
-                </a>
-                <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce deck ?')">
+              <td style="display: flex; align-items: center; gap: 10px;">
+                <a href="{{ route('deck.edit', { id: deck.id }) }}">Modifier</a>
+
+                <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST" style="margin: 0;">
                   {{ csrfField() }}
-                    <button type="submit" style="background: none; border: none; color: red; cursor: pointer;">
-                      Supprimer
-                    </button>
+                  <button type="submit" style="background: none; border: none; cursor: pointer; color: red; font-family: inherit; font-size: 1rem; padding: 0;">
+                    Supprimer
+                  </button>
                 </form>
               </td>
             </tr>

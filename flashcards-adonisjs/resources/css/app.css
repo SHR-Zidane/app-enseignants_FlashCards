@@ -1,80 +1,99 @@
+/* Nettoyage de base */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
 body {
   font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
+  padding-bottom: 40px;
 }
 
+/* Header : plus aéré */
 header {
   background-color: #cac97eff;
   height: 60px;
+  /* Utilisation de flexbox pour l'alignement */
   display: flex;
-  align-items: center;
-  padding: 0 20px;
+  align-items: center;    /* Aligne tout verticalement au centre */
+  justify-content: space-between; /* Espace automatiquement les éléments */
+  padding: 0 40px;
+}
+
+header .logo-ou-titre {
+  /* Si tu as un titre ou logo à gauche */
+  font-weight: bold;
 }
 
 header .login {
-  margin-left: auto;
+  /* Pousse la zone login tout à droite automatiquement grâce au justify-content: space-between */
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-span.user {
-  color: #333;
-  font-weight: 500;
-  font-size: 0.9rem;
+header .left {
+  display: flex;
+  align-items: center;
 }
-
+/* Bouton déco : simple et efficace */
 button.deco {
   background-color: white;
   border: 1px solid #000;
-  border-radius: 8px;
-  padding: 5px 15px;
+  border-radius: 4px;
+  padding: 6px 16px;
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.2s;
+  font-family: inherit;
 }
 
 button.deco:hover {
-  background-color: #e5e5e5;
+  background-color: #000; /* Inversion des couleurs au survol */
+  color: white;
 }
 
+/* Titre centré */
 h1 {
   text-align: center;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
+/* Tableau : plus lisible */
 table {
-  width: 80%;
+  width: 85%;
   margin: 20px auto;
   border-collapse: collapse;
 }
 
 th {
   text-align: left;
-  padding-bottom: 10px;
+  padding: 10px;
+  border-bottom: 2px solid #000; /* Ligne plus marquée pour les titres */
 }
 
 td {
-  padding: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
+/* Boutons d'action : meilleur placement */
 .btn-ajouter {
-  display: block;
-  margin: 20px auto 20px 10%;
+  display: inline-block;
+  margin: 20px 0 20px 7.5%; /* Aligné avec le début du tableau */
   padding: 8px 20px;
   border: 1px solid #000;
   background: white;
-  border-radius: 5px;
   cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-ajouter:hover {
+  background: #cac97eff;
+}
+
+/* Formulaires : bien centrés */
+form {
+  width: 85%;
+  margin: 20px auto;
+  padding: 10px 0;
 }

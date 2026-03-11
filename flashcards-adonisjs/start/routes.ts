@@ -18,7 +18,10 @@ router
     return response.redirect('/login')
   })
   .as('logout')
+
 router.get('/decks/:id/edit', [DecksController, 'edit']).as('deck.edit')
+
+router.post('/decks/:id/delete', [DecksController, 'destroy']).as('deck.destroy')
 
 router.post('/decks/:id/cards', [DecksController, 'addCard']).as('deck.addCard')
 

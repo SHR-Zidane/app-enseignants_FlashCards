@@ -55,6 +55,12 @@
                 <a href="{{ route('deck.edit', { id: deck.id }) }}" class="link-edit">
                   Modifier
                 </a>
+                <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce deck ?')">
+                  {{ csrfField() }}
+                    <button type="submit" style="background: none; border: none; color: red; cursor: pointer;">
+                      Supprimer
+                    </button>
+                </form>
               </td>
             </tr>
           @end

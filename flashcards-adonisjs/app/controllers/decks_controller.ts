@@ -45,12 +45,15 @@ export default class DecksController {
 
 
   async create({ view }: HttpContext) {
-    return view.render('pages/create')
+
+    const categories = await Category.all()
+
+    return view.render('pages/create', { categories })
   }
 
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['title', 'description'])
+    const data = request.only(['title', 'description', 'categoryId'])
 
     await Deck.create(data)
 
@@ -71,6 +74,12 @@ export default class DecksController {
 
     session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
 
+    return response.redirect().toRoute('deck')
+  }
+
+  async destroy({ params, response }: HttpContext){
+    const deck = await Deck.findOrFail(params.id)
+    await deck.delete()
     return response.redirect().toRoute('deck')
   }
 }

@@ -24,7 +24,16 @@
           <label for="description">Description :</label>
           <textarea id="description" name="description" placeholder="De quoi parle ce deck ?"></textarea>
         </div>
-
+        <div>
+          <label for="categoryId">Catégorie :</label>
+          <select name="categoryId" id="categoryId" required>
+            @each(category in categories)
+              <option value="{{ category.id }}">
+                {{ category.name }}
+              </option>
+            @end
+          </select>
+        </div>
         <button type="submit" class="btn-ajouter">Créer le deck</button>
       </form>
 

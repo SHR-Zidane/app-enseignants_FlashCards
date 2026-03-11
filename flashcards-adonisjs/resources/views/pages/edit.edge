@@ -26,6 +26,9 @@
             <th>
               Réponse
             </th>
+            <th>
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +39,14 @@
               </td>
               <td>
                 {{ card.answer }}
+              </td>
+              <td>
+                <button>
+                  Modifier
+                </button>
+                <button>
+                  Supprimer
+                </button>
               </td>
             </tr>
           @end
@@ -59,6 +70,9 @@
         </div>
         <button type="submit" class="btn-ajouter">Enregistrer la carte</button>
       </form>
+      <h3>
+        Modifer le deck
+      </h3>
       <form action="{{ route('deck.update', { id: deck.id }) }}" method="POST">
         {{ csrfField() }}
         <div>
@@ -75,8 +89,7 @@
             Modifier la catégorie
           </option>
           @each(category in categories)
-            <option value="{{ category.id }}" {{ deck.categoryId === category.id ?
-'selected' : '' }}>
+            <option value="{{ category.id }}" {{ deck.categoryId === category.id ? 'selected' : '' }}>
               {{ category.name }}
             </option>
           @end

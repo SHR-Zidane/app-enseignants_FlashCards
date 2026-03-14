@@ -3,6 +3,9 @@ import Deck from '#models/deck'
 import router from '@adonisjs/core/services/router'
 import CategoriesController from '#controllers/categories_controller'
 import { create } from 'domain'
+import FlashcardsController from '#controllers/flashcards_controller'
+
+// CATEGORY
 
 router.get('/', [DecksController, 'index']).as('deck')
 
@@ -12,12 +15,20 @@ router.get('/categories/create', [CategoriesController, 'create']).as('category.
 
 router.post('/category', [CategoriesController, 'store']).as('category.store')
 
+router.get('/categories/:id/edit', [CategoriesController, 'edit']).as('category.edit')
+
+router.post('/categories/:id/update', [CategoriesController, 'update']).as('category.update')
+
+router.post('/categories/:id/delete', [CategoriesController, 'destroy']).as('category.destroy')
+
 router
   .post('/logout', async ({ auth, response }) => {
     await auth.use('web').logout()
     return response.redirect('/login')
   })
   .as('logout')
+
+// DECK
 
 router.get('/decks/:id/edit', [DecksController, 'edit']).as('deck.edit')
 
@@ -32,3 +43,7 @@ router.post('/deck/:id/update', [DecksController, 'update']).as('deck.update')
 router.get('/decks/create', [DecksController, 'create']).as('deck.create')
 
 router.post('/decks', [DecksController, 'store']).as('deck.store')
+
+// FLASHCARD
+
+router.post('/flashcard/:id/delete', [FlashcardsController, 'destroy']).as('card.destroy')

@@ -1,4 +1,4 @@
-/* Nettoyage de base */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,24 +10,24 @@ body {
   padding-bottom: 40px;
 }
 
-/* Header : plus aéré */
+
 header {
   background-color: #cac97eff;
   height: 60px;
-  /* Utilisation de flexbox pour l'alignement */
+
   display: flex;
-  align-items: center;    /* Aligne tout verticalement au centre */
-  justify-content: space-between; /* Espace automatiquement les éléments */
+  align-items: center;
+  justify-content: space-between;
   padding: 0 40px;
 }
 
 header .logo-ou-titre {
-  /* Si tu as un titre ou logo à gauche */
+
   font-weight: bold;
 }
 
 header .login {
-  /* Pousse la zone login tout à droite automatiquement grâce au justify-content: space-between */
+
   display: flex;
   align-items: center;
   gap: 15px;
@@ -37,7 +37,7 @@ header .left {
   display: flex;
   align-items: center;
 }
-/* Bouton déco : simple et efficace */
+
 button.deco {
   background-color: white;
   border: 1px solid #000;
@@ -48,17 +48,17 @@ button.deco {
 }
 
 button.deco:hover {
-  background-color: #000; /* Inversion des couleurs au survol */
+  background-color: #000;
   color: white;
 }
 
-/* Titre centré */
+
 h1 {
   text-align: center;
   margin: 40px 0;
 }
 
-/* Tableau : plus lisible */
+
 table {
   width: 85%;
   margin: 20px auto;
@@ -68,7 +68,7 @@ table {
 th {
   text-align: left;
   padding: 10px;
-  border-bottom: 2px solid #000; /* Ligne plus marquée pour les titres */
+  border-bottom: 2px solid #000;
 }
 
 td {
@@ -76,10 +76,10 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-/* Boutons d'action : meilleur placement */
+
 .btn-ajouter {
   display: inline-block;
-  margin: 20px 0 20px 7.5%; /* Aligné avec le début du tableau */
+  margin: 20px 0 20px 7.5%;
   padding: 8px 20px;
   border: 1px solid #000;
   background: white;
@@ -91,7 +91,6 @@ td {
   background: #cac97eff;
 }
 
-/* Formulaires : bien centrés */
 form {
   width: 85%;
   margin: 20px auto;

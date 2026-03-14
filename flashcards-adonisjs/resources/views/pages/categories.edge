@@ -9,6 +9,11 @@
   <body>
     @include('partials/header')
     <main>
+      @if(flashMessages.has('success'))
+        <div style="background-color: #5cff47; color: #111010; padding: 10px; margin-bottom: 20px; border: 1px solid #000; text-align: center;">
+            {{ flashMessages.get('success') }}
+        </div>
+      @end
       <div>
         <h1>
           Liste des Catégories
@@ -41,6 +46,17 @@
               </td>
               <td>
                 {{ category.name }}
+              </td>
+              <td style="display: flex; align-items: center; gap: 10px;">
+                <a href="{{ route('category.edit', { id: category.id }) }}" >
+                  Modifier
+                </a>
+                <form action="{{ route('category.destroy', { id: category.id }) }}?_method=DELETE" method="POST" style="margin: 0;">
+                  {{ csrfField() }}
+                  <button type="submit" onclick="return confirm('êtes-vous sûr de supprimer cette catégorie ?')" style="background: none; border: none; cursor: pointer; color: red; font-size: 1rem; padding: 0;">
+                    Supprimer
+                  </button>
+                </form>
               </td>
             </tr>
           @end

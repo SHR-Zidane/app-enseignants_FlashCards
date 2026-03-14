@@ -77,9 +77,10 @@ export default class DecksController {
     return response.redirect().toRoute('deck')
   }
 
-  async destroy({ params, response }: HttpContext){
+  async destroy({ params, response, session }: HttpContext){
     const deck = await Deck.findOrFail(params.id)
     await deck.delete()
+    session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
     return response.redirect().toRoute('deck')
   }
 }

@@ -9,6 +9,11 @@
   <body>
     @include('partials/header')
     <main>
+      @if(flashMessages.has('success'))
+        <div style="background-color: #5cff47; color: #111010; padding: 10px; margin-bottom: 20px; border: 1px solid #000; text-align: center;">
+            {{ flashMessages.get('success') }}
+        </div>
+      @end
       <h1>
         Mes decks
       </h1>
@@ -52,7 +57,7 @@
                 {{ deck.$extras.flashcards_count }}
               </td>
               <td style="display: flex; align-items: center; gap: 10px;">
-                <a href="{{ route('deck.edit', { id: deck.id }) }}">Modifier</a>
+                <a href="{{ route('deck.edit', { id: deck.id }) }}">Ajouter / Modifier</a>
 
                 <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST" style="margin: 0;">
                   {{ csrfField() }}

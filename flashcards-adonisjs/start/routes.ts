@@ -47,3 +47,7 @@ router.post('/decks', [DecksController, 'store']).as('deck.store')
 // FLASHCARD
 
 router.post('/flashcard/:id/delete', [FlashcardsController, 'destroy']).as('card.destroy')
+
+router.get('/flashcard/:id/edit', [FlashcardsController, 'edit']).as('card.edit')
+
+router.patch('/flashcard/:id', [FlashcardsController, 'update']).as('card.update')

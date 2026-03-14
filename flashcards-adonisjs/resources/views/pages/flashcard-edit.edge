@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifier la carte</title>
+  @vite(['resources/css/app.css'])
+</head>
+<body>
+  @include('partials/header')
+  <main>
+    <h1>Modifier la carte</h1>
+
+    <form action="{{ route('card.update', { id: card.id }) }}?_method=PATCH" method="POST">
+      {{ csrfField() }}
+
+      <div>
+        <label>Question :</label>
+        <input type="text" name="question" value="{{ card.question }}" required />
+      </div>
+
+      <div>
+        <label>Réponse :</label>
+        <input type="text" name="answer" value="{{ card.answer }}" required />
+      </div>
+
+      <button type="submit">Enregistrer les modifications</button>
+      <a href="{{ route('deck.edit', { id: card.deckId }) }}">Retour aux decks</a>
+    </form>
+  </main>
+</body>
+</html>

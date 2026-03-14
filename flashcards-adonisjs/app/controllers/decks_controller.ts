@@ -52,10 +52,12 @@ export default class DecksController {
   }
 
 
-  async store({ request, response }: HttpContext) {
+  async store({ request, response, session }: HttpContext) {
     const data = request.only(['title', 'description', 'categoryId'])
 
     await Deck.create(data)
+
+    session.flash('success', 'Le deck a bien été crée')
 
     return response.redirect().toRoute('deck')
   }
@@ -72,7 +74,7 @@ export default class DecksController {
 
     await deck.save()
 
-    session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
+    session.flash('success', 'Le deck a bien été modifié ')
 
     return response.redirect().toRoute('deck')
   }
@@ -80,7 +82,7 @@ export default class DecksController {
   async destroy({ params, response, session }: HttpContext){
     const deck = await Deck.findOrFail(params.id)
     await deck.delete()
-    session.flash('Réussi', 'Le deck ${deckUpdated.title} a bien été modifié ')
+    session.flash('success', 'Le deck a bien été supprimé ')
     return response.redirect().toRoute('deck')
   }
 }

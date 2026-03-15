@@ -13,7 +13,7 @@ export default class DecksController {
   }
 
 
-  async show({ params, view }: HttpContext) {
+  async show({ params, view, session }: HttpContext) {
     const deck = await Deck.query().where('id', params.id).preload('flashcards').firstOrFail()
 
     return view.render('pages/study', { deck })

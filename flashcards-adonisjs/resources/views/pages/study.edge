@@ -17,29 +17,35 @@
         @if(deck.flashcards.length > 0)
           @each((card, index) in deck.flashcards)
             <div class="card-item" id="card-{{ index }}" style="{{ index === 0 ? '' : 'display:none' }}">
-              <div class="card-front">
+              <div class="card-front" id="front-{{index}}" onclick="showAnswer({{ index }})">
                 <h3>
                   Question
                 </h3>
                 <p class="content">
                   {{ card.question }}
                 </p>
-                <button onclick="showAnswer({{ index }})" class="btn-reveal">Voir la réponse</button>
               </div>
 
-              <div class="card-back" id="answer-{{ index }}" style="display:none">
-                <hr />
+              <div id="answer-{{index}}" class="card-back" style="display:none; text-align:center;">
                 <h3>
                   Réponse
                 </h3>
                 <p class="content">
                   {{ card.answer }}
                 </p>
-                <button onclick="nextCard({{ index }})" class="btn-next">Suivant →</button>
+                <div class="actions">
+                  <button onclick="registerResult('juste'); nextCard({{ index }});">Juste</button>
+                  <button onclick="registerResult('faux'); nextCard({{ index }});">Faux</button>
+                </div>
               </div>
               <a href="{{ route('deck') }}">Retour à l'accueil</a>
             </div>
           @end
+          <div id="final-result" style="display:none; text-align:center; padding: 20px;">
+            <h2>Quiz terminé !</h2>
+            <p>Votre score final est : <span id="final-score-value"></span> / {{ deck.flashcards.length }}</p>
+            <a href="{{ route('deck') }}" class="btn-next">retour à l'accueil</a>
+          </div>
         @else
           <p>
             Ce deck ne contient aucune carte.
@@ -50,8 +56,21 @@
     </main>
 
     <script>
+      let score = 0;
+
+      function registerResult(isCorrect) {
+        if (isCorrect === 'juste') {
+          score++;
+        }
+      }
       function showAnswer(index) {
-        document.getElementById(`answer-${index}`).style.display = "block";
+        const answerBlock = document.getElementById(`answer-${index}`);
+
+        const questionBlock = document.getElementById(`front-${index}`);
+
+        answerBlock.style.display = "block";
+
+        questionBlock.style.display = "none";
       }
 
       function nextCard(index) {
@@ -61,9 +80,14 @@
           currentCard.style.display = "none";
           nextCard.style.display = "block";
         } else {
-          alert("Deck terminé");
-          window.location.href = "/";
-        }
+
+          currentCard.style.display = "none";
+
+          document.getElementById('final-result').style.display = "block";
+
+          document.getElementById('final-score-value').innerText = score;
+
+          document.querySelector('h1').style.display = "none";        }
       }
     </script>
   </body>

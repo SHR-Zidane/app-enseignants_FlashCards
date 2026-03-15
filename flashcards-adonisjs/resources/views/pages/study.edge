@@ -17,7 +17,7 @@
         @if(deck.flashcards.length > 0)
           @each((card, index) in deck.flashcards)
             <div class="card-item" id="card-{{ index }}" style="{{ index === 0 ? '' : 'display:none' }}">
-              <div class="card-front" id="front-{{index}}" onclick="showAnswer({{ index }})">
+              <div class="card-front" id="front-{{ index }}" onclick="showAnswer({{ index }})">
                 <h3>
                   Question
                 </h3>
@@ -26,7 +26,7 @@
                 </p>
               </div>
 
-              <div id="answer-{{index}}" class="card-back" style="display:none; text-align:center;">
+              <div id="answer-{{ index }}" class="card-back" style="display:none; text-align:center;">
                 <h3>
                   Réponse
                 </h3>

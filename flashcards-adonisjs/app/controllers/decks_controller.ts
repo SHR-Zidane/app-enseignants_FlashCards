@@ -6,15 +6,23 @@ import Category from '#models/category'
 import { flashcardValidator } from '#validators/flashcard'
 
 export default class DecksController {
-  public async index({ view }: HttpContext) {
-    const decks = await Deck.query().preload('category').withCount('flashcards')
+  public async index({ auth, view }: HttpContext) {
+    const user = auth.user!
 
-    return view.render('pages/home', { decks })
+    await user.load('decks', (decksQuery) => {
+      decksQuery.preload('category')
+      decksQuery.withCount('flashcards')
+    })
+    return view.render('pages/home', { decks: user.decks })
   }
 
 
-  async show({ params, view, session }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id).preload('flashcards').firstOrFail()
+  async show({ params, view, auth }: HttpContext) {
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .where('userId', auth.user!.id)
+      .preload('flashcards')
+      .firstOrFail()
 
     return view.render('pages/study', { deck })
   }
@@ -55,10 +63,10 @@ export default class DecksController {
   }
 
 
-  async store({ request, response, session }: HttpContext) {
+  async store({ request, response, session, auth }: HttpContext) {
     const data = await request.validateUsing(deckValidator)
 
-    await Deck.create(data)
+    await auth.user!.related('decks').create(data)
 
     session.flash('success', 'Le deck a bien été crée')
 
@@ -82,8 +90,11 @@ export default class DecksController {
     return response.redirect().toRoute('deck')
   }
 
-  async destroy({ params, response, session }: HttpContext){
-    const deck = await Deck.findOrFail(params.id)
+  async destroy({ params, response, session, auth }: HttpContext){
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .where('user_id', auth.user!.id)
+      .firstOrFail()
     await deck.delete()
     session.flash('success', 'Le deck a bien été supprimé ')
     return response.redirect().toRoute('deck')

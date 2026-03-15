@@ -15,6 +15,13 @@ export default class extends BaseSchema {
         .references('id')
         .inTable('categories')
         .onDelete('CASCADE')
+      table
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
     })
   }
 

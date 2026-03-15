@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <style>
+        body { max-width: 400px; margin: 50px auto; }
+        div { margin-bottom: 15px; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Inscription</h1>
+
+    @if(session.has('error'))
+        <div style="color: red; margin-bottom: 20px;">{{ session.get('error') }}</div>
+    @end
+
+    <form id="register-form" action="{{ route('auth.register.post') }}" method="POST">
+        {{ csrfField() }}
+
+      <div>
+        <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required>
+        @inputError('username')
+          <span style="color: red;"> {{ $messages.join(', ') }} </span>
+        @end
+      </div>
+
+      <div>
+        <input type="password" id="password" name="password" placeholder="Mot de passe (8+ car.)" required>
+        @inputError('password')
+          <span style="color: red;"> {{ $messages.join(', ') }} </span>
+        @end
+      </div>
+
+      <div>
+        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirmez le mot de passe" required>
+      </div>
+
+      <button type="submit" id="submit-btn" style="display: none;">S'inscrire</button>
+    </form>
+
+    <p>Déjà inscrit ? <a href="{{ route('auth.login') }}">Se connecter</a></p>
+
+
+
+    <script>
+      const usernameInput = document.getElementById('username')
+  const passwordInput = document.getElementById('password')
+  const confirmInput = document.getElementById('password_confirmation')
+  const submitBtn = document.getElementById('submit-btn')
+
+      function validateForm() {
+        const username = usernameInput.value.trim()
+        const password = passwordInput.value
+        const confirmation = confirmInput.value
+
+        const isUsernameValid = username.length > 0
+
+        const isPasswordValid = password.length >= 8
+
+        const arePasswordsMatching = (password === confirmation) && password !== ""
+
+        if (isUsernameValid && isPasswordValid && arePasswordsMatching) {
+          submitBtn.style.display = 'block'
+        } else {
+          submitBtn.style.display = 'none'
+        }
+      }
+
+      usernameInput.addEventListener('input', validateForm)
+      passwordInput.addEventListener('input', validateForm)
+      confirmInput.addEventListener('input', validateForm)
+    </script>
+
+</body>
+</html>

@@ -3,8 +3,15 @@ import FlashCard from '#models/flash_card'
 import { flashcardValidator } from '#validators/flashcard'
 
 export default class FlashcardsController {
-  async destroy({ params, response, session }: HttpContext) {
-      const card = await FlashCard.findOrFail(params.id)
+  async destroy({ params, response, session, auth }: HttpContext) {
+    const card = await FlashCard.query()
+      .where('id', params.id)
+      .preload('deck')
+      .firstOrFail()
+    if (card.deck.userId !== auth.user!.id) {
+      session.flash('error', 'Action non autorisée')
+      return response.redirect().toRoute('deck')
+  }
       await card.delete()
 
       session.flash('success', 'flashcard supprimée avec succès.')
@@ -18,9 +25,16 @@ export default class FlashcardsController {
     return view.render('pages/flashcard-edit', { card })
   }
 
-  async update({ params, request, response, session }: HttpContext) {
-    const card = await FlashCard.find(params.id)
+  async update({ params, request, response, session, auth }: HttpContext) {
+    const card = await FlashCard.query()
+      .where('id', params.id)
+      .preload('deck')
+      .firstOrFail()
 
+    if (card.deck.userId !== auth.user!.id) {
+      session.flash('error', 'Action non autorisée')
+      return response.redirect().toRoute('deck')
+    }
     const data = await request.validateUsing(flashcardValidator, {
       meta: {
         deckId: card.deckId,

@@ -14,11 +14,13 @@
   </div>
   <div>
     <div class="login">
-      <span class="user">Username</span>
+      @if(auth.isAuthenticated)
+      <span class="user">{{ auth.user.username }}</span>
 
-      <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+      <form action="{{ route('auth.logout') }}" method="POST" style="margin: 0;">
         {{ csrfField() }}
       <button type="submit" class="deco">Déconnexion</button>
       </form>
+      @end
     </div>
   </header>

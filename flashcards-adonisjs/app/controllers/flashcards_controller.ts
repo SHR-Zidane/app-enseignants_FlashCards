@@ -13,12 +13,12 @@ export default class FlashcardsController {
   async edit({ params, view }: HttpContext) {
     console.log("Contenu de params :", params)
 
-    const card = await FlashCard.findByOrFail(params.id)
+    const card = await FlashCard.find(params.id)
     return view.render('pages/flashcard-edit', { card })
   }
 
   async update({ params, request, response, session }: HttpContext) {
-    const card = await FlashCard.findByOrFail(params.id)
+    const card = await FlashCard.find(params.id)
 
     const data = request.only(['question', 'answer'])
 

@@ -10,6 +10,11 @@
   <body>
     @include('partials/header')
     <main>
+      @if(flashMessages.has('success'))
+        <div style="background-color: #5cff47; color: #111010; padding: 10px; margin-bottom: 20px; border: 1px solid #000; text-align: center;">
+            {{ flashMessages.get('success') }}
+        </div>
+      @end
       <h1>
         Modifier le deck : {{ deck.title }}
       </h1>

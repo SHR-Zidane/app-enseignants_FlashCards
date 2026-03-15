@@ -21,6 +21,8 @@ router.post('/categories/:id/update', [CategoriesController, 'update']).as('cate
 
 router.post('/categories/:id/delete', [CategoriesController, 'destroy']).as('category.destroy')
 
+//LOGIN
+
 router
   .post('/logout', async ({ auth, response }) => {
     await auth.use('web').logout()
@@ -46,8 +48,8 @@ router.post('/decks', [DecksController, 'store']).as('deck.store')
 
 // FLASHCARD
 
-router.post('/flashcard/:id/delete', [FlashcardsController, 'destroy']).as('card.destroy')
+router.post('/cards/:id/delete', [FlashcardsController, 'destroy']).as('card.destroy')
 
-router.get('/flashcard/:id/edit', [FlashcardsController, 'edit']).as('card.edit')
+router.get('/cards/:id/edit', [FlashcardsController, 'edit']).as('card.edit')
 
-router.patch('/flashcard/:id', [FlashcardsController, 'update']).as('card.update')
+router.post('/cards/:id', [FlashcardsController, 'update']).as('card.update')

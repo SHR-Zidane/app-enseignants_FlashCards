@@ -32,13 +32,15 @@ export default class DecksController {
   }
 
 
-  async addCard({ params, request, response }: HttpContext) {
+  async addCard({ params, request, response, session }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
 
     await deck.related('flashcards').create({
       question: request.input('question'),
       answer: request.input('answer'),
     })
+
+    session.flash('success', 'La flashcard a bien été crée')
 
     return response.redirect().back()
   }

@@ -71,10 +71,16 @@
         <div>
           <label>Question (Recto) :</label>
           <input type="text" name="question" required />
+          @inputError('question')
+            <p>{{ $messages.join(', ') }}</p>
+          @end
         </div>
         <div>
           <label>Réponse (Verso) :</label>
           <input type="text" name="answer" required />
+          @inputError('answer')
+            <p>{{ $messages.join(', ') }}</p>
+          @end
         </div>
         <button type="submit" class="btn-ajouter">Enregistrer la carte</button>
       </form>

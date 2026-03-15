@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import FlashCard from '#models/flash_card'
+import { flashcardValidator } from '#validators/flashcard'
 
 export default class FlashcardsController {
   async destroy({ params, response, session }: HttpContext) {
@@ -20,7 +21,12 @@ export default class FlashcardsController {
   async update({ params, request, response, session }: HttpContext) {
     const card = await FlashCard.find(params.id)
 
-    const data = request.only(['question', 'answer'])
+    const data = await request.validateUsing(flashcardValidator, {
+      meta: {
+        deckId: card.deckId,
+        cardId: card.id
+      }
+    })
 
     card.merge(data)
     await card.save()

@@ -15,11 +15,17 @@
       <div>
         <label>Question :</label>
         <input type="text" name="question" value="{{ card.question }}" required />
+        @inputError('question')
+            <p>{{ $messages.join(', ') }}</p>
+          @end
       </div>
 
       <div>
         <label>Réponse :</label>
         <input type="text" name="answer" value="{{ card.answer }}" required />
+        @inputError('answer')
+            <p>{{ $messages.join(', ') }}</p>
+          @end
       </div>
 
       <button type="submit">Enregistrer les modifications</button>

@@ -18,11 +18,18 @@
         <div>
           <label for="title">Titre du deck :</label>
           <input type="text" id="title" name="title" required placeholder="ex: Vocabulaire Anglais" />
+
+          @inputError('title')
+            <p style="color: red; font-size: 0.8em;">{{ $messages.join(', ') }}</p>
+          @end
         </div>
 
         <div>
           <label for="description">Description :</label>
           <textarea id="description" name="description" placeholder="De quoi parle ce deck ?"></textarea>
+          @inputError('description')
+            <p style="color: red; font-size: 0.8em;">{{ $messages.join(', ') }}</p>
+          @end
         </div>
         <div>
           <label for="categoryId">Catégorie :</label>

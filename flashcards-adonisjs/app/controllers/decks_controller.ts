@@ -3,6 +3,7 @@ import Deck from '#models/deck'
 import FlashCard from '#models/flash_card'
 import { deckValidator } from '#validators/deck'
 import Category from '#models/category'
+import { flashcardValidator } from '#validators/flashcard'
 
 export default class DecksController {
   public async index({ view }: HttpContext) {
@@ -35,13 +36,13 @@ export default class DecksController {
   async addCard({ params, request, response, session }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
 
-    await deck.related('flashcards').create({
-      question: request.input('question'),
-      answer: request.input('answer'),
+    const data = await request.validateUsing(flashcardValidator, {
+      meta: { deckId: deck.id }
     })
+    console.log("Données validées :", data)
+    await deck.related('flashcards').create(data)
 
     session.flash('success', 'La flashcard a bien été crée')
-
     return response.redirect().back()
   }
 
@@ -55,7 +56,7 @@ export default class DecksController {
 
 
   async store({ request, response, session }: HttpContext) {
-    const data = request.only(['title', 'description', 'categoryId'])
+    const data = await request.validateUsing(deckValidator)
 
     await Deck.create(data)
 

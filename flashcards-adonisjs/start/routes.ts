@@ -1,8 +1,14 @@
+/*
+|--------------------------------------------------------------------------
+| Routes file
+|--------------------------------------------------------------------------
+|
+| The routes file is used for defining the HTTP routes.
+|
+*/
 import DecksController from '#controllers/decks_controller'
-import Deck from '#models/deck'
 import router from '@adonisjs/core/services/router'
 import CategoriesController from '#controllers/categories_controller'
-import { create } from 'domain'
 import FlashcardsController from '#controllers/flashcards_controller'
 import AuthController from '#controllers/auth_controller'
 import { middleware } from './kernel.js'
@@ -13,9 +19,7 @@ router.post('/login', [AuthController, 'login']).as('auth.login.post')
 router.post('/register', [AuthController, 'register']).as('auth.register.post')
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
-
 router.group(() => {
-
   // Decks
   router.get('/home', [DecksController, 'index']).as('deck')
   router.get('/decks/create', [DecksController, 'create']).as('deck.create')
@@ -45,5 +49,4 @@ router.group(() => {
     router.post('/:id', [FlashcardsController, 'update']).as('card.update')
     router.post('/:id/delete', [FlashcardsController, 'destroy']).as('card.destroy')
   }).prefix('/cards')
-
 }).use(middleware.auth({ guards: ['web'] }))

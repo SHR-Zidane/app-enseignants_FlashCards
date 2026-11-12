@@ -1,6 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Deck from '#models/deck'
-import FlashCard from '#models/flash_card'
 import { deckValidator } from '#validators/deck'
 import Category from '#models/category'
 import { flashcardValidator } from '#validators/flashcard'
@@ -16,7 +15,6 @@ export default class DecksController {
     return view.render('pages/home', { decks: user.decks })
   }
 
-
   async show({ params, view, auth }: HttpContext) {
     const deck = await Deck.query()
       .where('id', params.id)
@@ -27,7 +25,6 @@ export default class DecksController {
     return view.render('pages/study', { deck })
   }
 
-
   async edit({ params, view }: HttpContext) {
     const deck = await Deck.query()
       .where('id', params.id)
@@ -37,31 +34,28 @@ export default class DecksController {
 
     const categories = await Category.all()
 
-    return view.render('pages/edit', { deck, categories})
+    return view.render('pages/edit', { deck, categories })
   }
-
 
   async addCard({ params, request, response, session }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
 
     const data = await request.validateUsing(flashcardValidator, {
-      meta: { deckId: deck.id }
+      meta: { deckId: deck.id },
     })
-    console.log("Données validées :", data)
+
+    console.log('Données validées :', data)
     await deck.related('flashcards').create(data)
 
     session.flash('success', 'La flashcard a bien été crée')
     return response.redirect().back()
   }
 
-
   async create({ view }: HttpContext) {
-
     const categories = await Category.all()
 
     return view.render('pages/create', { categories })
   }
-
 
   async store({ request, response, session, auth }: HttpContext) {
     const data = await request.validateUsing(deckValidator)
@@ -72,6 +66,7 @@ export default class DecksController {
 
     return response.redirect().toRoute('deck')
   }
+
   async update({ params, request, session, response }: HttpContext) {
     const { title, description, categoryId } = await request.validateUsing(deckValidator)
 
@@ -90,11 +85,12 @@ export default class DecksController {
     return response.redirect().toRoute('deck')
   }
 
-  async destroy({ params, response, session, auth }: HttpContext){
+  async destroy({ params, response, session, auth }: HttpContext) {
     const deck = await Deck.query()
       .where('id', params.id)
       .where('user_id', auth.user!.id)
       .firstOrFail()
+
     await deck.delete()
     session.flash('success', 'Le deck a bien été supprimé ')
     return response.redirect().toRoute('deck')

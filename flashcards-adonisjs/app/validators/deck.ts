@@ -1,5 +1,4 @@
 import vine from '@vinejs/vine'
-import { db } from '@adonisjs/lucid/services/db'
 
 const deckValidator = vine.compile(
   vine.object({
